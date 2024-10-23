@@ -4,10 +4,17 @@ block content
   .container
     .sidebar
       h1= title
-      p Welcome to Group 8's #{title} App! Here we visualize 7 processed queries from the Steam Games Dataset. 
-      p This project serves as requirement for our STADVDB S14 MCO1 under the Computer Science - Software Technology Department.
+      p Welcome to Group 8's #{title} App! Here we visualize 
+      | 7 processed queries from the Steam Games Dataset. 
+
+      p This project serves as requirement for our STADVDB 
+      | S14 MCO1 under the Computer Science - Software Technology Department.
+
       ul
         li: a(href="#") -- sample tab --
         li: a(href="#") -- sample tab --
         li: a(href="#") -- sample tab -- 
-  include queries
+
+    .dashboard
+      include queries
+
