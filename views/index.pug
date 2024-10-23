@@ -3,3 +3,23 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  a(href='/result') Click me
+
+  if result 
+    h1 Results
+    p
+        b Games That Support All Platforms (Windows, Mac, Linux) and Have Positive Reviews 
+    unless result.length == 1
+        p Total queried: #{result.length} items
+    else
+        p Total queried: #{result.length} item
+    ul
+
+    - var size = result.length
+    - var list = result.slice(0, 10)
+
+    each val in list
+        li= val.name
+
+    unless (result.length <= 10)
+        p <b>and (#{result.length - 10}) more...</b>
