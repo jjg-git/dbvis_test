@@ -1,0 +1,6 @@
+h2(class="query-header") Top Genres by Average Playtime
+div(class="chart" id="chart2")
+p(class="description") 
+| description here
+
+script(src="javascript/queries/genre-average-playtime.js")
