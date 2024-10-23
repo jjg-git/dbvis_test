@@ -1,12 +1,14 @@
 var mysql = require('mysql');
+
 require('dotenv').config();
 
 class DB {
   constructor() {
     this.con = mysql.createConnection({
-      host: process.env.HOSTNAME,
-      user: process.env.USER,
-      password: process.env.PASSWORD
+      host: process.env.MYSQL_HOSTNAME,
+      user: process.env.MYSQL_USERNAME,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE
     });
   }
 }
