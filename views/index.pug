@@ -1,30 +1,37 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+    .sidebar
+      h1= title
+      p Welcome to Group 8's #{title} App! Here we visualize 7 processed queries from the Steam Games Dataset. 
+      p This project serves as requirement for our STADVDB S14 MCO1 under the Computer Science - Software Technology Department.
+      ul
+        li: a(href="#") -- sample tab --
+        li: a(href="#") -- sample tab --
+        li: a(href="#") -- sample tab -- 
 
-block queries
-  h1 Queries
-  .dashboard
-    .query-block
-      h2.query-header Games that support a combination of platforms and have positive reviews
-      div.chart#chart0
-    .query-block
-      h2.query-header Games with Both High Playtime & Low Price
-      div.chart#chart1
-    .query-block
-      h2.query-header Top Genres by Average Playtime
-      div.chart#chart2
-    .query-block
-      h2.query-header X Games with X Price that Support at least X (number) Platforms
-      div.chart#chart3
-    .query-block
-      h2.query-header X (genre) Games that belong to X category by release date
-      div.chart#chart4
-    .query-block
-      h2.query-header Number of Achievements and Peak Concurrent Users for Popular Games (with over 5000 positive reviews) in Specific Genres
-      div.chart#chart5
-    .query-block
-      h2.query-header Total Estimated Owners and Average Playtime by Genre
-      div.chart#chart6
+    block queries
+      .dashboard
+        h1 Queries
+          .query-block
+            h2.query-header Games that support a combination of platforms and have positive reviews
+            div.chart#chart0
+          .query-block
+            h2.query-header Games with Both High Playtime & Low Price
+            div.chart#chart1
+          .query-block
+            h2.query-header Top Genres by Average Playtime
+            div.chart#chart2
+          .query-block
+            h2.query-header X Games with X Price that Support at least X (number) Platforms
+            div.chart#chart3
+          .query-block
+            h2.query-header X (genre) Games that belong to X category by release date
+            div.chart#chart4
+          .query-block
+            h2.query-header Number of Achievements and Peak Concurrent Users for Popular Games (with over 5000 positive reviews) in Specific Genres
+            div.chart#chart5
+          .query-block
+            h2.query-header Total Estimated Owners and Average Playtime by Genre
+            div.chart#chart6
