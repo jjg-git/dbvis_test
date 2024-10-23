@@ -6,23 +6,25 @@ block content
 
 block queries
   h1 Queries
-  h2(class="query-header") Games that support a combination of platforms and have positive reviews
-  div(class="chart" id="chart0")
-
-  h2(class="query-header") Games with Both High Playtime & Low Price
-  div(class="chart" id="chart1")
-
-  h2(class="query-header") Top Genres by Average Playtime
-  div(class="chart" id="chart2")
-
-  h2(class="query-header") X Games with X Price that Support at least X (number) Platforms
-  div(class="chart" id="chart3")
-
-  h2(class="query-header") X (genre) Games that belong to X category by release date
-  div(class="chart" id="chart4")
-
-  h2(class="query-header") Number of Achievements and Peak Concurrent Users for Popular Games (with over 5000 positive reviews) in Specific Genres
-  div(class="chart" id="chart5")
-
-  h2(class="query-header") Total Estimated Owners and Average Playtime by Genre
-  div(class="chart" id="chart6")
+  .dashboard
+    .query-block
+      h2.query-header Games that support a combination of platforms and have positive reviews
+      div.chart#chart0
+    .query-block
+      h2.query-header Games with Both High Playtime & Low Price
+      div.chart#chart1
+    .query-block
+      h2.query-header Top Genres by Average Playtime
+      div.chart#chart2
+    .query-block
+      h2.query-header X Games with X Price that Support at least X (number) Platforms
+      div.chart#chart3
+    .query-block
+      h2.query-header X (genre) Games that belong to X category by release date
+      div.chart#chart4
+    .query-block
+      h2.query-header Number of Achievements and Peak Concurrent Users for Popular Games (with over 5000 positive reviews) in Specific Genres
+      div.chart#chart5
+    .query-block
+      h2.query-header Total Estimated Owners and Average Playtime by Genre
+      div.chart#chart6
