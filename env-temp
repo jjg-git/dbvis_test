@@ -1,0 +1,4 @@
+MYSQL_HOSTNAME=localhost # change this to something else when deploying
+MYSQL_USERNAME=
+MYSQL_PASSWORD=
+MYSQL_DATABASE=
