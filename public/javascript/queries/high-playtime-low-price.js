@@ -1,6 +1,0 @@
-h2(class="query-header") Games with Both High Playtime & Low Price
-div(class="chart" id="chart1")
-p(class="description") 
-| description here
-
-script(src="javascript/queries/playtime-low-price.js")
