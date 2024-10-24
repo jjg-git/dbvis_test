@@ -1,6 +1,19 @@
-h2(class="query-header") Games that support a combination of platforms and have positive reviews
-div(class="chart" id="chart0")
-p(class="description") 
-| description here
+h2(class="query-header") 
+  | Games that support a combination of platforms and have positive reviews
 
-script(src="platform-reviews.js")
+div(class="chart" id="games-per-platform")
+
+div
+  input(class="platform reviews windows" type="checkbox" id="windows-review" name="platform" value="windows")
+  label(for="windows-review") Windows
+
+  input(class="platform reviews mac" type="checkbox" id="mac-review" name="platform" value="mac")
+  label(for="mac-review") Mac
+  
+  input(class="platform reviews linux" type="checkbox" id="linux-review" name="platform" value="linux")
+  label(for="linux-review") Linux
+
+p(class="description") 
+  | description here
+
+script(src="javascript/queries/platform-review.js")
