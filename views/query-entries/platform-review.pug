@@ -3,15 +3,50 @@ h2(class="query-header")
 
 div(class="chart" id="games-per-platform")
 
-div
-  input(class="platform reviews windows" type="checkbox" id="windows-review" name="platform" value="windows")
-  label(for="windows-review") Windows
-
-  input(class="platform reviews mac" type="checkbox" id="mac-review" name="platform" value="mac")
-  label(for="mac-review") Mac
+form(class="platform review")
+  style.
+    fieldset.platform.review.radio {
+      border: none;
+      display: inline;
+      margin: 0px;
+      padding: 0px;
+    }
+    table.platform.review tr td{
+      padding-right: 2em;
+    }
+    
+    
+  table(class="platform review")
+    tr
+      td
+        input(class="platform review windows include" type="checkbox" name="windowsInclude" checked)
+        label Windows
+      td
+        input(class="platform review mac include" type="checkbox" name="macInclude" checked)
+        label Mac
+      td
+        input(class="platform review linux include" type="checkbox" name="linuxInclude" checked)
+        label Linux
+    tr
+      td
+        fieldset(class="platform review windows radio")
+          input(class="platform review windows on radio" type="radio" name="windows" value="on" checked)
+          label ON
+          input(class="platform review windows off radio" type="radio" name="windows" value="off")
+          label OFF
+      td
+        fieldset(class="platform review mac radio")
+          input(class="platform review mac on radio" type="radio" name="mac" value="on")
+          label ON
+          input(class="platform review mac off radio" type="radio" name="mac" value="off" checked)
+          label OFF
+      td
+        fieldset(class="platform review linux radio")
+          input(class="platform review linux on radio" type="radio" name="linux" value="on")
+          label ON
+          input(class="platform review linux off radio" type="radio" name="linux" value="off" checked)
+          label OFF
   
-  input(class="platform reviews linux" type="checkbox" id="linux-review" name="platform" value="linux")
-  label(for="linux-review") Linux
 
 p(class="description") 
   | description here
