@@ -1,6 +1,6 @@
 function renderChart(data) {
     console.log("im rendering");
-    const divChart = document.querySelector("div.genre.date.category.chart");
+    const divChart = document.querySelector("chart4");
   
     // Prepare data for the chart
     const seriesData = [];

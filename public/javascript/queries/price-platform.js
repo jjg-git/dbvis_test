@@ -1,6 +1,6 @@
 function renderChart(data) {
     console.log("im rendering");
-    const divChart = document.querySelector("div.genre.price.platform.chart");
+    const divChart = document.querySelector("chart3");
   
     // Assuming you want to visualize the count of games per genre or platform
     const totalGames = data.length;
