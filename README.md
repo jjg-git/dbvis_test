@@ -1,5 +1,7 @@
+# STADVDB 
 ## Dependencies
-+ 
++ mysql (^2.18.1)
+
 ## Installation
 Clone the repository
 ```
