@@ -8,7 +8,7 @@ const gppReview = require("./query/genre-price-platform-review");
 
 
 router.use('/platform-review', platformReview);
-router.use('/achivement-review', achievementReview);
+router.use('/achievement-review', achievementReview);
 router.use('/owner-review', ownerReview);
 router.use('/genre-date-category-review', gdcReview);
 router.use('/genre-price-platform-review', gppReview);
