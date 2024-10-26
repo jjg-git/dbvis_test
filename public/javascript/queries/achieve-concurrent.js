@@ -1,6 +1,6 @@
 function renderChart(data) {
   console.log("im rendering");
-  const divChart = document.querySelector("div.genre.achievements.chart");
+  const divChart = document.querySelector("achieveChart");
 
   const options = {
     colors: ["#F44336", "#3F51B5"],
