@@ -2,10 +2,30 @@ function renderChart(data) {
   console.log("im rendering")
   const divChart = document.querySelector("div.platform.review.chart");
   const options = {
+    colors: ["#F44336", "#E91E63", "#9C27B0"],
+    series: [
+      {
+        name: "Games",
+        data: [data.basic.windows, data.basic.mac, data.basic.linux],
+      },
+      {
+        name: "Exclusives",
+        data: [
+          data.exclusive.windows,
+          data.exclusive.mac,
+          data.exclusive.linux,
+        ],
+      },
+    ],
+    xaxis: {
+      type: "categories",
+      categories: ["Windows", "Mac", "Linux"],
+      tickPlacement: "on",
+    },
     chart: {
       type: "bar",
-      width: 1000,
-      redrawOnWindowResize: true,
+      redrawOnWindowResize: false,
+      redrawOnParentResize: false,
       toolbar: {
         show: true,
         offsetX: 0,
@@ -41,26 +61,6 @@ function renderChart(data) {
         type: "y",
         autoScaleYaxis: true,
       },
-    },
-    colors: ["#F44336", "#E91E63", "#9C27B0"],
-    series: [
-      {
-        name: "Games",
-        data: [data.basic.windows, data.basic.mac, data.basic.linux],
-      },
-      {
-        name: "Exclusives",
-        data: [
-          data.exclusive.windows,
-          data.exclusive.mac,
-          data.exclusive.linux,
-        ],
-      },
-    ],
-    xaxis: {
-      type: "categories",
-      categories: ["Windows", "Mac", "Linux"],
-      tickPlacement: "on",
     },
   };
 
@@ -98,4 +98,5 @@ async function prepareData() {
 
 const data = prepareData();
 renderChart(data);
+
 
