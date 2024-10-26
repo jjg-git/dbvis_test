@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { selectAggregateSQL, selectSQL } = require("../sqlOperation");
+const { selectAggregateSQL, selectSQL, getSQLFile } = require("../sqlOperation");
 
 const sendJSON = async function(req, res, next) {
   const results = {data: req.results};
@@ -23,6 +23,7 @@ router.get('/', [
     req.queryFilePath = 'db/sql/top-genres-by-average-playtime/basequery5.sql'
     next();
 },
+  getSQLFile,
   selectSQL,
   sendJSON
 ]);
