@@ -39,6 +39,7 @@ const selectSQL = (req, res, next) => {
       }
 
       req.results = results;
+      console.log("results =", results);
       next();
     })
   });

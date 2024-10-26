@@ -1,31 +1,32 @@
 const express = require("express");
 const router = express.Router();
-const { selectAggregateSQL, selectSQL, getSQLFile } = require("../sqlOperation");
+const { selectAggregateSQL, selectSQL } = require("../sqlOperation");
 
-const sendJSON = async function(req, res, next) {
-  const results = {data: req.results};
+const sendJSON = async function (req, res, next) {
+  const results = { data: req.results };
   console.log("sendJSON::results =", results);
   await res.json(results);
   console.log("done sending JSON");
-}
+};
 
 const prepareData = function (req, res, next) {
   console.log("prepareData");
-  req.aggData = {
-    
-  }
+  req.aggData = {};
   next();
-}
+};
 
-router.get('/', [
+router.get("/", [
+  function (req, res, next) {
+    console.log("achievement-reviews.js");
+    next();
+  },
   prepareData,
   function (req, res, next) {
-    req.queryFilePath = 'db/sql/achievement-reviews/basequery1.sql'
+    req.queryFilePath = "db/sql/achievement-reviews/basequery1.sql";
     next();
 },
-  getSQLFile,
   selectSQL,
-  sendJSON
+  sendJSON,
 ]);
 
 module.exports = router;
