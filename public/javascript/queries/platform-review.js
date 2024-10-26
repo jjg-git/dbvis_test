@@ -1,5 +1,6 @@
-function renderChart(data) {
+async function renderChartPlatformReview(data) {
   console.log("im rendering")
+  console.log("data", data);
   const divChart = document.querySelector("div.platform.review.chart");
   const options = {
     colors: ["#F44336", "#E91E63", "#9C27B0"],
@@ -70,7 +71,7 @@ function renderChart(data) {
   graph.render();
 }
 
-async function prepareData() {
+async function prepareDataPlatformReview() {
   console.log("im preparing")
   return await fetch("/query/platform-review/", {
     headers: {
@@ -88,15 +89,17 @@ async function prepareData() {
     console.log("johnsons johnsons", json);
     return json;
   })
-  .then((json) => json.data)
+  .then((json) => { 
+    console.log(json);
+    return json.data;
+  })
   .then((data) => {
-    console.log(data);
-    renderChart(data);
+    console.log("data =", data);
+    renderChartPlatformReview(data);
   })
   .catch((reason) => console.log(reason));
 }
 
-const data = prepareData();
-renderChart(data);
+const data1 = prepareDataPlatformReview();
 
 
