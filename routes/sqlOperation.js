@@ -44,4 +44,29 @@ const selectSQL = (req, res, next) => {
   });
 }
 
-module.exports = { selectSQL, getSQLFile };
+const selectAggregateSQL = (req, res, next) => {
+  console.log("selectAggregateSQL");
+  const query = req.query;
+
+  const db = new DB();
+  
+  db.con.connect(function(err) {
+    if (err) {
+      console.log("sqlConnect.js: ", err);
+      next(err);
+    }
+
+    db.con.query(query, function(err, results, fields) {
+      if (err) {
+        console.log("sqlConnect.js::db.con.query(): ", err);
+        next(err);
+      }
+
+      req.results = results[0];
+      next();
+    })
+  });
+}
+
+
+module.exports = { selectSQL, getSQLFile, selectAggregateSQL };

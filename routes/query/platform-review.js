@@ -1,9 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { selectSQL, getSQLFile } = require("../sqlOperation");
-
-const DB = require('../../db/mysql-DB');
-const fs = require('fs/promises');
+const { selectAggregateSQL } = require("../sqlOperation");
 
 const sendJSON = async function(req, res, next) {
   const results = {data: req.results};
@@ -12,117 +9,95 @@ const sendJSON = async function(req, res, next) {
   console.log("done sending JSON");
 }
 
-const writeSQL = async function(req, res, next) {
-  const platforms = req.body;
-  console.log("writeSQL::platforms =", platforms);
-
-  let sql = 
-`SELECT COUNT(*)
-FROM games as g
-JOIN platform as p ON g.app_id = p.app_id 
-WHERE 
-  `;
-
-  const conditions = [];
-  for (let platform in platforms) {
-    if (platform == "windows" && platforms[platform]["include"]) {
-      conditions.push("p.windows LIKE " + (platforms[platform]["available"] ? `"true"` : `"false"`));
-    }
-    else if (platform == "mac" && platforms[platform]["include"]) {
-      conditions.push("p.mac LIKE " + (platforms[platform]["available"] ? `"true"` : `"false"`));
-    }
-    else if (platform == "linux" && platforms[platform]["include"]) {
-      conditions.push("p.linux LIKE " + (platforms[platform]["available"] ? `"true"` : `"false"`));
-    }
-  }
-  
-  const end_i = conditions.length - 1;
-  for (let i  = 0; i <= end_i; i++) {
-    sql += conditions[i];
-
-    if (i != end_i) {
-      sql += " AND ";
-    }
-  }
-
-  sql += ";";
-  console.log(sql);
-
-  fs.writeFile("db/sql/platform-reviews/write.sql", sql);
-  res.status(200).json();
-}
-
-const sqlPath = function (req, res, next) {
-  req.queryFilePath = "db/sql/platform-reviews/write.sql";
-  next();
-}
-
 const prepareData = function (req, res, next) {
+  console.log("prepareData");
   req.aggData = {
-    windows: undefined,
-    mac: undefined,
-    linux: undefined,
+    basic: undefined,
+    exclusive: undefined
   }
   next();
 }
 
-function selectPlatformForSQL(platform) {
+function selectPlatformForSQL(option) {
   const queries = {
-    windows:
-`SELECT g.name
-FROM games as g
-JOIN platform as p ON g.app_id = p.app_id 
-WHERE p.windows LIKE "true";
-  `,
-    mac:
-`SELECT g.name
-FROM games as g
-JOIN platform as p ON g.app_id = p.app_id 
-WHERE p.mac LIKE "true";
-  `,
-    linux:
-`SELECT g.name
-FROM games as g
-JOIN platform as p ON g.app_id = p.app_id 
-WHERE p.linux LIKE "true";
-  `,
+    basic:
+`
+SELECT (
+	SELECT COUNT(*)
+    FROM games AS g
+    JOIN platform AS p ON g.app_id = p.app_id
+    WHERE p.windows LIKE "true"
+) as "windows", 
+(
+	SELECT COUNT(*)
+    FROM games AS g
+    JOIN platform AS p ON g.app_id = p.app_id
+    WHERE p.mac LIKE "true"
+) as "mac", 
+(
+	SELECT COUNT(*)
+    FROM games AS g
+    JOIN platform AS p ON g.app_id = p.app_id
+    WHERE p.linux LIKE "true"
+) as "linux";
+`
+    ,
+    exclusive:
+`
+SELECT (
+	SELECT COUNT(*)
+    FROM games AS g
+    JOIN platform AS p ON g.app_id = p.app_id
+    WHERE p.windows LIKE "true" AND
+		  p.mac LIKE "false" AND
+          p.linux LIKE "false"
+) as "windows", 
+(
+	SELECT COUNT(*)
+    FROM games AS g
+    JOIN platform AS p ON g.app_id = p.app_id
+    WHERE p.windows LIKE "false" AND
+		  p.mac LIKE "true" AND
+          p.linux LIKE "false"
+) as "mac", 
+(
+	SELECT COUNT(*)
+    FROM games AS g
+    JOIN platform AS p ON g.app_id = p.app_id
+    WHERE p.windows LIKE "false" AND
+		  p.mac LIKE "false" AND
+          p.linux LIKE "true"
+) as "linux";
+`
   }
 
-  return queries[platform];
+  return queries[option];
 }
 
-const queryWindows = function (req, res, next) {
-  req.query = selectPlatformForSQL("windows");
-  next();
-}
+router.get('/', [
+  prepareData,
 
-const queryMac = function (req, res, next) {
-  req.query = selectPlatformForSQL("mac");
-  next();
-}
-
-const queryLinux = function (req, res, next) {
-  req.query = selectPlatformForSQL("linux");
-  next();
-}
-
-router.post('/', writeSQL);
-router.get('/', [sqlPath, getSQLFile, selectSQL, sendJSON]);
-router.get('/all', [
-  queryWindows, 
-  selectSQL,
   (req, res, next) => {
-    req.aggData.windows = req.results;
+    console.log("querrying basic");
+    req.query = selectPlatformForSQL("basic");
     next();
   },
-  selectSQL,
+  selectAggregateSQL,
   (req, res, next) => {
-    req.aggData.mac = req.results;
+    console.log("preparing basic");
+    req.aggData.basic = req.results;
     next();
   },
-  selectSQL,
+
   (req, res, next) => {
-    req.aggData.linux = req.results;
+    console.log("querrying exclusive");
+    req.query = selectPlatformForSQL("exclusive");
+    next();
+  },
+  selectAggregateSQL,
+  (req, res, next) => {
+    console.log("preparing exclusive");
+    req.aggData.exclusive = req.results;
     next();
   },
   (req, res, next) => {
@@ -131,13 +106,5 @@ router.get('/all', [
   },
   sendJSON
 ]);
-  /*
-  const macSQL = fs.readFileSync("db/sql/mac-query.sql");
-  const linuxSQL = fs.readFileSync("db/sql/linux-query.sql");
-  const winMacSQL = fs.readFileSync("db/sql/windows-mac-query.sql");
-  const winLinuxSQL = fs.readFileSync("db/sql/windows-linux-query.sql");
-  const macLinuxSQL = fs.readFileSync("db/sql/mac-linux-query.sql");
-  const allPlatformSQL= fs.readFileSync("db/sql/base-query.sql");
-  */
 
 module.exports = router;

@@ -1,54 +1,13 @@
 h2(class="query-header") 
   | Games that support a combination of platforms and have positive reviews
 
-div(class="chart" id="games-per-platform")
-
-form(class="platform review")
-  style.
-    fieldset.platform.review.radio {
-      border: none;
-      display: inline;
-      margin: 0px;
-      padding: 0px;
-    }
-    table.platform.review tr td{
-      padding-right: 2em;
-    }
-    
-    
-  table(class="platform review")
-    tr
-      td
-        input(class="platform review windows include" type="checkbox" name="windowsInclude" checked)
-        label Windows
-      td
-        input(class="platform review mac include" type="checkbox" name="macInclude" checked)
-        label Mac
-      td
-        input(class="platform review linux include" type="checkbox" name="linuxInclude" checked)
-        label Linux
-    tr
-      td
-        fieldset(class="platform review windows radio")
-          input(class="platform review windows on radio" type="radio" name="windows" value="on" checked)
-          label ON
-          input(class="platform review windows off radio" type="radio" name="windows" value="off")
-          label OFF
-      td
-        fieldset(class="platform review mac radio")
-          input(class="platform review mac on radio" type="radio" name="mac" value="on")
-          label ON
-          input(class="platform review mac off radio" type="radio" name="mac" value="off" checked)
-          label OFF
-      td
-        fieldset(class="platform review linux radio")
-          input(class="platform review linux on radio" type="radio" name="linux" value="on")
-          label ON
-          input(class="platform review linux off radio" type="radio" name="linux" value="off" checked)
-          label OFF
-  
+h3 Overview
+div(class="platform review chart")
 
 p(class="description") 
-  | description here
+  | The data are formed by multiple subqueries for each platform and category
+  | (in the platform and exclusively in the said platform). The query uses the 
+  | <code>COUNT</code> function instead of <code>SELECT *</code> to
+  | return only the number of results.
 
 script(src="javascript/queries/platform-review.js")
