@@ -1,6 +1,6 @@
 function renderChart(data) {
   console.log("im rendering");
-  const divChart = document.querySelector("achieveChart");
+  const divChart = document.querySelector(".achieveChart");
 
   const options = {
     colors: ["#F44336", "#3F51B5"],
@@ -69,7 +69,7 @@ function renderChart(data) {
 
 async function prepareData() {
   console.log("im preparing");
-  return await fetch("/query/achievement-reviews/", { // Updated route
+  return await fetch("/query/achievement-review/", { // Updated route
     headers: {
       "Content-Type": "application/json",
     },
@@ -80,10 +80,11 @@ async function prepareData() {
         throw new Error("Error " + response.status + ": " + response.statusText);
       }
       const json = response.json();
-      console.log("johnsons johnsons", json);
       return json;
     })
-    .then((json) => json.data) // Extract data property from the response
+    .then((json) => { 
+      return json.data;
+    }) // Extract data property from the response
     .then((data) => {
       console.log(data);
       renderChart(data);

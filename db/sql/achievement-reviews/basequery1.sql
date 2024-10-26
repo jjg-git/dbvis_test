@@ -16,4 +16,5 @@ WHERE
     g.genre IN ('Action', 'RPG', 'Strategy')  -- DICE: Focus on specific genres
     AND s.positive > 5000  -- DICE: Games with more than 5000 positive reviews
 ORDER BY 
-    s.achievements DESC;  -- DRILL-DOWN: Detailed view based on achievements
+    s.achievements DESC
+LIMIT 10;  -- DRILL-DOWN: Detailed view based on achievements
